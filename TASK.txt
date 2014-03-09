@@ -1,0 +1,55 @@
+Background:
+
+Your company, Sherwood Plc, is looking to obtain "Investor in
+People" status.  To achieve this they need to understand the
+current company structure; who reports to whom, how much people
+are being paid, etc.  The HR director has asked the IT team
+to use the company HR database to help provide this information.
+
+The task:
+
+You will need to create a short program to read in the data
+from the HR database and build up a structured model of the
+employees described in it.
+
+The HR database is a CSV file, with one employee per row of the
+file and a single header row describing the columns; the employee
+name, their line managers name, their department and their salary.
+
+Below is some example data:
+
+  Employee Name,Manager,Department,Salary
+  Robin Hood,,,200
+  Friar Tuck,Robin Hood,Wealth Redistribution,100
+  Little John,Robin Hood,Wealth Redistribution,100
+
+In this file, Robin Hood is the manager of both Friar Tuck and
+Little John.  They all work in the wealth redistribution
+department.
+
+N.B. In the data file, there's NO guarantee as to the order the
+employees appear in.
+
+What we're looking for:
+
+We're looking for a simple ruby program that takes a file as an
+argument and outputs the employee structure.  Maybe something like:
+
+  $ ruby employee_structure.rb merry_men.csv
+  Robin Hood (no department)
+  >> Friar Tuck (Wealth Distribution)
+  >> Little John (Wealth Distribution)
+  >> (...and so on...)
+
+Our goal in setting this task is to get a better understanding of
+your style of coding and how you write software, so write your
+solution with that in mind.
+
+Feel free to use any relevant libraries to accomplish your task.
+
+Here are some more questions to consider if you have time:
+  - What happens when a manager isn't listed in the file?
+  - What happens if there are extra columns in the data?
+  - How hard would it be to change the output to list employees
+     by department, or by salary?
+  - How should it respond to missing data, e.g. missing employee name?
