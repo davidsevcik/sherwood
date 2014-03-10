@@ -9,6 +9,8 @@ describe EmployeeList do
         list = subject.structure_by(:manager)
         expect(list[4].employee.name).to eq('Will Scarlett')
         expect(list[4].level).to eq(2)
+        expect(list.last.employee.name).to eq('Tom Jones')
+        expect(list.last.level).to be_nil
       end
     end
 
