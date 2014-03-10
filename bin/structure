@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/employee'
+require_relative '../lib/employee_list'
+
+
+def print_structure employees_with_level, &process_missing
+  employees_with_level.select {|item| !item.level.nil? }.each do |item|
+    print '  ' * (item.level - 1), "\u2517 " if item.level > 0
+    puts item.employee
+  end
+
+  if process_missing
+    missing = employees_with_level.select {|item| item.level.nil? }
+    process_missing.call missing unless missing.empty?
+  end
+end
+
+
+def print_grouped grouped
+  grouped.each_pair do |key, employees|
+    puts key || 'undefined'
+    employees.each {|employee| puts "\u2517 #{employee}" }
+  end
+end
+
+
+if ARGV[0] && File.exists?(ARGV[0]) && ARGV[0] != '-h' && ARGV[0] != '--help'
+  list = EmployeeList.from_csv(ARGV[0])
+
+  case ARGV[1]
+    when 'department', 'salary'
+      print_grouped list.group_by(ARGV[1])
+    else
+      print_structure list.structure_by(:manager) do |missing|
+        puts "\nWith missing manager record:"
+        missing.each do |item|
+          puts "#{item.employee} - manager #{item.employee.manager_name}"
+        end
+      end
+  end
+
+else
+  puts "Usage: structure csv_file [manager|department|salary]"
+end
